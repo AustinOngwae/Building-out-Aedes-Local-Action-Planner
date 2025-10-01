@@ -18,275 +18,252 @@
         }
         /* Custom checkbox and radio styles */
         .custom-radio:checked {
+            background-color: #0d9488; /* teal-600 */
             background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
         }
          .custom-checkbox:checked {
+            background-color: #0d9488; /* teal-600 */
             background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+        }
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #results-printable, #results-printable * {
+                visibility: visible;
+            }
+            #results-printable {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            #navigation, #header-main, #restart-btn-container {
+                display: none;
+            }
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-gray-100 text-gray-800">
 
-    <div class="container mx-auto px-4 py-8 md:py-12 max-w-4xl">
-        <header class="text-center mb-8">
+    <div class="container mx-auto px-4 py-8 md:py-12 max-w-5xl">
+        <header id="header-main" class="text-center mb-8">
             <h1 class="text-3xl md:text-4xl font-bold text-teal-700">Urban Planner's Aedes Action Tool</h1>
             <p class="mt-2 text-lg text-gray-600">Integrate public health into your planning practice to design resilient, mosquito-free cities.</p>
         </header>
 
         <main id="app-container" class="bg-white p-6 md:p-8 rounded-2xl shadow-lg">
             
-            <!-- Form Sections -->
             <form id="planner-form">
                 <!-- Step 1: Planning Context -->
                 <div id="step-1" class="form-section active">
                     <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 1: Planning Context & Health Risk</h2>
-                    <p class="mb-6 text-gray-500">First, identify the scope of your work and the local public health context.</p>
+                    <p class="mb-6 text-gray-500">Define the scope of your work and the local public health context.</p>
                     
                     <h3 class="font-semibold text-gray-700 mb-3">What is the primary focus of your current planning effort?</h3>
-                     <div class="space-y-4 mb-8">
-                        <div>
-                            <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                                <input type="radio" name="planning_focus" value="new_development" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500" required>
-                                <span class="ml-4">
-                                    <strong class="font-semibold block">New Development / Master Plan</strong>
-                                    <span class="text-sm text-gray-500">Designing a new residential, commercial, or mixed-use area.</span>
-                                </span>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                                <input type="radio" name="planning_focus" value="retrofitting" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
-                                <span class="ml-4">
-                                    <strong class="font-semibold block">Retrofitting / Urban Regeneration</strong>
-                                    <span class="text-sm text-gray-500">Upgrading infrastructure and housing in an existing neighborhood.</span>
-                                </span>
-                            </label>
-                        </div>
-                         <div>
-                            <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                                <input type="radio" name="planning_focus" value="policy" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
-                                <span class="ml-4">
-                                    <strong class="font-semibold block">City-Wide Policy & Zoning</strong>
-                                    <span class="text-sm text-gray-500">Developing comprehensive plans, zoning ordinances, or building codes.</span>
-                                </span>
-                            </label>
-                        </div>
+                    <div class="space-y-4 mb-8">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="radio" name="planning_focus" value="new_development" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500" required>
+                            <span class="ml-4"><strong class="font-semibold block">New Development / Master Plan</strong><span class="text-sm text-gray-500">Designing a new district or large-scale project.</span></span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="radio" name="planning_focus" value="retrofitting" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4"><strong class="font-semibold block">Retrofitting / Urban Regeneration</strong><span class="text-sm text-gray-500">Upgrading an existing neighborhood.</span></span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="radio" name="planning_focus" value="policy" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4"><strong class="font-semibold block">City-Wide Policy & Zoning</strong><span class="text-sm text-gray-500">Developing comprehensive plans or codes.</span></span>
+                        </label>
                     </div>
 
-                    <h3 class="font-semibold text-gray-700 mb-3">What is the current Aedes-borne disease situation in this area?</h3>
-                    <div class="space-y-4">
-                        <select name="transmission_level" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required>
-                            <option value="" disabled selected>-- Please select an option --</option>
-                            <option value="epidemic">Epidemic Transmission (Regular, large-scale outbreaks)</option>
-                            <option value="seasonal">Regular Seasonal Transmission (Predictable annual increases)</option>
-                            <option value="sporadic">Sporadic Transmission (Occasional, isolated cases)</option>
-                            <option value="present_no_local">Aedes Present, No Local Transmission (Vector is present)</option>
-                        </select>
-                    </div>
+                    <h3 class="font-semibold text-gray-700 mb-3">What is the current Aedes-borne disease situation?</h3>
+                    <select name="transmission_level" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required>
+                        <option value="" disabled selected>-- Please select an option --</option>
+                        <option value="epidemic">Epidemic Transmission (Regular, large-scale outbreaks)</option>
+                        <option value="seasonal">Regular Seasonal Transmission (Predictable annual increases)</option>
+                        <option value="sporadic">Sporadic Transmission (Occasional, isolated cases)</option>
+                        <option value="present_no_local">Aedes Present, No Local Transmission (Vector is present)</option>
+                        <option value="no_aedes">No Aedes present (Preventative planning)</option>
+                    </select>
                 </div>
 
                 <!-- Step 2: Regional Context & Capacity -->
                 <div id="step-2" class="form-section">
                     <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 2: Regional Context & Capacity</h2>
-                    <p class="mb-6 text-gray-500">Understanding your region and available resources helps tailor the plan.</p>
+                    <p class="mb-6 text-gray-500">Detail your region, budget, and existing assets to tailor the plan.</p>
 
                     <h3 class="font-semibold text-gray-700 mb-3">Which region best describes your planning area?</h3>
-                    <div class="space-y-4 mb-8">
-                        <select name="region" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required>
-                            <option value="" disabled selected>-- Please select a region --</option>
-                            <option value="asia_pacific">Asia-Pacific</option>
-                            <option value="americas">The Americas (South, Central, North)</option>
-                            <option value="africa">Africa</option>
-                            <option value="europe_middle_east">Europe / Middle East (areas with emerging risk)</option>
-                        </select>
-                    </div>
+                    <select name="region" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 mb-8" required>
+                        <option value="" disabled selected>-- Please select a region --</option>
+                        <option value="asia_pacific">Asia-Pacific</option>
+                        <option value="americas">The Americas (South, Central, North)</option>
+                        <option value="africa">Africa</option>
+                        <option value="europe_middle_east">Europe / Middle East (areas with emerging risk)</option>
+                    </select>
 
                     <h3 class="font-semibold text-gray-700 mb-3">What is the approximate budget for this initiative?</h3>
                     <div class="space-y-4 mb-8">
                         <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
                             <input type="radio" name="budget" value="high" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500" required>
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Well-funded</strong>
-                                <span class="text-sm text-gray-500">Dedicated budget for capital projects and new programs.</span>
-                            </span>
+                            <span class="ml-4"><strong class="font-semibold block">Well-funded</strong><span class="text-sm text-gray-500">Dedicated budget for capital projects and new programs.</span></span>
                         </label>
                         <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
                             <input type="radio" name="budget" value="medium" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Limited</strong>
-                                <span class="text-sm text-gray-500">Funding for operational costs or small projects, may rely on grants.</span>
-                            </span>
+                            <span class="ml-4"><strong class="font-semibold block">Limited</strong><span class="text-sm text-gray-500">Funding for operational costs or small grants.</span></span>
                         </label>
                         <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
                             <input type="radio" name="budget" value="low" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Minimal / Unfunded</strong>
-                                <span class="text-sm text-gray-500">Must rely on existing resources and low-cost policy changes.</span>
-                            </span>
-                        </label>
-                    </div>
-
-                    <h3 class="font-semibold text-gray-700 mb-3">Which of these key systems are already in place and functional?</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="existing_infra" value="waste" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4"><strong class="font-semibold block">Effective Solid Waste Management</strong></span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="existing_infra" value="water" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4"><strong class="font-semibold block">Reliable Piped Water Supply</strong></span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="existing_infra" value="surveillance" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4"><strong class="font-semibold block">Proactive Vector Surveillance</strong></span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="existing_infra" value="community" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4"><strong class="font-semibold block">Active Community Engagement</strong></span>
+                            <span class="ml-4"><strong class="font-semibold block">Minimal / Unfunded</strong><span class="text-sm text-gray-500">Must rely on existing resources and no-cost policy changes.</span></span>
                         </label>
                     </div>
                 </div>
 
-                <!-- Step 3: Built Environment Audit -->
+                <!-- Step 3: Integrated Control Audit -->
                 <div id="step-3" class="form-section">
-                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 3: Built Environment Audit</h2>
-                    <p class="mb-6 text-gray-500">Identify key physical characteristics and infrastructure gaps in your planning area.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="urban_challenges" value="water_supply" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Inconsistent Piped Water</strong>
-                                <span class="text-sm text-gray-500">Residents frequently store water in containers.</span>
-                            </span>
-                        </label>
-                         <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="urban_challenges" value="waste_management" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Poor Solid Waste Collection</strong>
-                                <span class="text-sm text-gray-500">Irregular collection leads to discarded containers holding water.</span>
-                            </span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="urban_challenges" value="drainage" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Ineffective Drainage</strong>
-                                <span class="text-sm text-gray-500">Storm drains and gutters are often blocked or poorly designed.</span>
-                            </span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="urban_challenges" value="housing" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Inadequate Housing Stock</strong>
-                                <span class="text-sm text-gray-500">Many homes lack screens or have water-collecting features.</span>
-                            </span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="urban_challenges" value="green_infra" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Lack of Green Infrastructure</strong>
-                                <span class="text-sm text-gray-500">Limited use of bioswales, permeable pavements, or green roofs for stormwater.</span>
-                            </span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="urban_challenges" value="construction" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Unmanaged Construction Sites</strong>
-                                <span class="text-sm text-gray-500">New construction projects frequently create standing water.</span>
-                            </span>
-                        </label>
+                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 3: Integrated Control Audit</h2>
+                    <p class="mb-6 text-gray-500">Indicate which of the following health-sector activities are currently implemented effectively in your area.</p>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-3">Vector Control</h3>
+                            <div class="checklist-grid">
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="vc_optimize" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Optimized Existing Programme</strong><span class="text-sm text-gray-500">Maximized coverage and effectiveness.</span></span>
+                                </label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="vc_novel" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Novel Vector Control</strong><span class="text-sm text-gray-500">e.g., Wolbachia, TIRS implemented at scale.</span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-3">Disease Prevention</h3>
+                            <div class="checklist-grid">
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="dp_training" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Physician Training</strong><span class="text-sm text-gray-500">Regular training in clinical management.</span></span>
+                                </label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="dp_vaccination" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Routine & Adaptive Vaccination</strong><span class="text-sm text-gray-500">Vaccine programs are in place.</span></span>
+                                </label>
+                            </div>
+                        </div>
+                         <div>
+                            <h3 class="font-semibold text-gray-700 mb-3">Integrated Surveillance & Evaluation</h3>
+                            <div class="checklist-grid">
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="is_realtime" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Real-time Case Monitoring</strong><span class="text-sm text-gray-500">Detect and monitor dengue cases rapidly.</span></span>
+                                </label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="is_aedes_dynamics" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Aedes Population Dynamics</strong><span class="text-sm text-gray-500">Monitoring of mosquito populations.</span></span>
+                                </label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="is_resistance" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Resistance Monitoring</strong><span class="text-sm text-gray-500">Insecticide, Wolbachia resistance, etc.</span></span>
+                                </label>
+                                 <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50">
+                                    <input type="checkbox" name="implemented" value="me_effectiveness" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300">
+                                    <span class="ml-3"><strong class="block">Measure Effectiveness</strong><span class="text-sm text-gray-500">Routinely measure effectiveness of control.</span></span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Step 4: Policy & Regulatory Framework -->
+                <!-- Step 4: Urban Environment Policy Audit -->
                 <div id="step-4" class="form-section">
-                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 4: Policy & Regulatory Framework</h2>
-                    <p class="mb-6 text-gray-500">Assess your current policy tools, collaborative processes, and regulatory environment.</p>
-                     <div class="space-y-4">
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="governance_challenges" value="collaboration" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Siloed Departments</strong>
-                                <span class="text-sm text-gray-500">Planning, Public Works, and Health departments rarely coordinate.</span>
-                            </span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="governance_challenges" value="building_codes" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Outdated Building Codes</strong>
-                                <span class="text-sm text-gray-500">Codes lack specific standards for mosquito-proofing (e.g., screens, drainage).</span>
-                            </span>
-                        </label>
-                         <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="governance_challenges" value="health_assessment" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">No Health Impact Assessments</strong>
-                                <span class="text-sm text-gray-500">Development proposals are not formally reviewed for public health risks.</span>
-                            </span>
-                        </label>
-                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
-                            <input type="checkbox" name="governance_challenges" value="community_engagement" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
-                            <span class="ml-4">
-                                <strong class="font-semibold block">Limited Public Participation</strong>
-                                <span class="text-sm text-gray-500">Community input on infrastructure or housing projects is minimal.</span>
-                            </span>
-                        </label>
+                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 4: Urban Environment Policy Audit</h2>
+                    <p class="mb-6 text-gray-500">Indicate which of the following urban environment policies and programs are currently implemented.</p>
+                     <div class="space-y-6">
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-3">Planning & Regulation</h3>
+                            <div class="checklist-grid">
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="pr_construction" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Changed Construction Practices</strong><span class="text-sm text-gray-500">Short-term regulations in place.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="pr_design" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Changed Design Practices</strong><span class="text-sm text-gray-500">Medium-term design codes updated.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="pr_integrate" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Integrated Aedes Prevention</strong><span class="text-sm text-gray-500">Long-term integration into city plan.</span></span></label>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-3">Urban Services</h3>
+                            <div class="checklist-grid">
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="us_waste" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Improved Solid Waste Collection</strong><span class="text-sm text-gray-500">Effective, regular service in place.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="us_water" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Consistent Piped Water</strong><span class="text-sm text-gray-500">Reliable supply reduces water storage.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="us_drainage" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Effective Drainage Systems</strong><span class="text-sm text-gray-500">City-wide effective drainage.</span></span></label>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-gray-700 mb-3">Social & Governmental Collaboration</h3>
+                             <div class="checklist-grid">
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="sm_campaigns" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Community Cleanup Campaigns</strong><span class="text-sm text-gray-500">Individual & community organized.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="ms_communication" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Inter-sectoral Communication</strong><span class="text-sm text-gray-500">Improved comms between sectors.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="sm_ownership" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">Community-based Ownership</strong><span class="text-sm text-gray-500">Surveillance & program ownership.</span></span></label>
+                                <label class="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"><input type="checkbox" name="implemented" value="ms_whole" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300"><span class="ml-3"><strong class="block">"Whole of Government" Approach</strong><span class="text-sm text-gray-500">Integrated health/planning goals.</span></span></label>
+                             </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Step 5 is now a placeholder for potential future questions, the logic is ready. The app currently has 4 steps visible to the user but is built for 5. -->
+                 <!-- Step 5 can be added here if more questions are needed -->
             </form>
 
-            <!-- Navigation Buttons -->
             <div id="navigation" class="mt-8 flex justify-between">
                 <button id="prev-btn" class="bg-gray-200 text-gray-700 font-semibold py-2 px-6 rounded-lg hover:bg-gray-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed" disabled>Previous</button>
                 <button id="next-btn" class="bg-teal-600 text-white font-semibold py-2 px-6 rounded-lg hover:bg-teal-700 transition-colors">Next</button>
                 <button id="submit-btn" class="hidden bg-emerald-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-emerald-700 transition-transform transform hover:scale-105">Generate Action Plan</button>
             </div>
 
-             <!-- Results Section -->
             <div id="results-container" class="hidden">
-                 <!-- Results content will be injected here by JavaScript -->
+                 <!-- Results content will be injected by JavaScript -->
             </div>
-            
         </main>
     </div>
 
     <script>
         const app = {
             currentStep: 1,
-            totalSteps: 4,
+            totalSteps: 4, // Changed from 5 to 4 to reflect the visible steps
             form: document.getElementById('planner-form'),
             steps: document.querySelectorAll('.form-section'),
             prevBtn: document.getElementById('prev-btn'),
             nextBtn: document.getElementById('next-btn'),
             submitBtn: document.getElementById('submit-btn'),
-            navigation: document.getElementById('navigation'),
             resultsContainer: document.getElementById('results-container'),
-            appContainer: document.getElementById('app-container'),
-
+            
             init() {
                 this.nextBtn.addEventListener('click', () => this.changeStep(1));
                 this.prevBtn.addEventListener('click', () => this.changeStep(-1));
-                this.submitBtn.addEventListener('click', () => this.generatePlan());
+                this.submitBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.generatePlan();
+                });
                 this.updateButtons();
             },
 
             changeStep(direction) {
-                // Validation for current step
                 const currentStepElement = document.getElementById(`step-${this.currentStep}`);
                 const inputs = currentStepElement.querySelectorAll('input[required], select[required]');
                 let isValid = true;
                 inputs.forEach(input => {
                     if (input.type === 'radio') {
                         const radioGroup = document.querySelector(`input[name="${input.name}"]:checked`);
-                        if (!radioGroup) {
-                            isValid = false;
-                        }
+                        if (!radioGroup) isValid = false;
                     } else if (!input.value) {
                         isValid = false;
                     }
                 });
 
                 if (direction > 0 && !isValid) {
-                     this.showError('Please make a selection to continue.');
+                     this.showError('Please complete all required fields to continue.');
                      return;
                 }
 
@@ -308,30 +285,36 @@
                     errorEl = document.createElement('div');
                     errorEl.id = 'error-message';
                     errorEl.className = 'mt-4 text-center text-red-600 font-semibold p-3 bg-red-100 rounded-lg';
-                    this.navigation.insertAdjacentElement('beforebegin', errorEl);
+                    document.getElementById('navigation').insertAdjacentElement('beforebegin', errorEl);
                 }
                 errorEl.textContent = message;
                 setTimeout(() => errorEl.remove(), 3000);
             },
 
-            generatePlan() {
+            async generatePlan() {
+                document.getElementById('navigation').classList.add('hidden');
+                document.getElementById('planner-form').classList.add('hidden');
+                this.resultsContainer.classList.remove('hidden');
+                this.resultsContainer.innerHTML = `<div class="text-center p-8"><div class="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto"></div><p class="mt-4 text-gray-600">Analyzing your inputs and generating a tailored plan...</p></div>`;
+
                 const formData = new FormData(this.form);
                 const data = {
                     planning_focus: formData.get('planning_focus'),
                     transmission_level: formData.get('transmission_level'),
                     region: formData.get('region'),
                     budget: formData.get('budget'),
-                    existing_infra: formData.getAll('existing_infra'),
-                    urban_challenges: formData.getAll('urban_challenges'),
-                    governance_challenges: formData.getAll('governance_challenges'),
+                    implemented: formData.getAll('implemented'),
                 };
 
                 const recommendations = this.getRecommendations(data);
-                this.displayResults(recommendations, data.planning_focus);
+                this.displayResults(recommendations, data);
+                
+                // Trigger AI summary generation
+                this.getAiSummary(data, recommendations);
             },
-
+            
             getRecommendations(data) {
-                const recs = {
+                 const recs = {
                     strategic_notes: [],
                     policy: [],
                     design: [],
@@ -339,49 +322,43 @@
                     coBenefits: new Set()
                 };
 
-                const allRecommendations = [
-                    // --- Policy & Regulatory Actions ---
-                    { id: 'cip_health', title: 'Create a Capital Improvement Plan for Health', text: 'Develop a phased capital improvement plan that prioritizes upgrading drainage systems, retrofitting public housing with screens, and investing in consistent solid waste services for the regeneration area.', category: 'policy', budgets: ['high', 'medium'], focus: ['retrofitting'], benefits: ['Environment', 'Social', 'Health'] },
-                    { id: 'comp_plan', title: 'Update Comprehensive Plan & Zoning Ordinance', text: 'Revise the city\'s comprehensive plan to explicitly state public health and vector control as a primary goal. Update the zoning ordinance with standards that promote Aedes-free environments.', category: 'policy', budgets: ['high', 'medium', 'low'], focus: ['policy'], benefits: ['Institutional', 'Health'] },
-                    { id: 'waste_land_use', title: 'Integrate Waste Management into Land Use Planning', text: 'Zone for and invest in modern, intermediate solid waste collection and management sites. Partner with the private sector to create economic incentives for recycling and waste reduction.', category: 'policy', budgets: ['high', 'medium'], addresses: 'waste_management', benefits: ['Environment', 'Economy'] },
-                    { id: 'construction_ord', title: 'Enforce Construction Site Management Ordinances', text: 'Implement and enforce regulations that require developers to manage water accumulation on construction sites. This could include regular inspections and penalties for non-compliance.', category: 'policy', budgets: ['medium', 'low'], addresses: 'construction', benefits: ['Institutional', 'Health'] },
-                    { id: 'modernize_codes', title: 'Modernize Building & Housing Codes', text: 'Lead an initiative to update local building and housing codes to include mandatory mosquito-proofing standards. This creates a long-term, sustainable solution that requires minimal ongoing cost.', category: 'policy', budgets: ['medium', 'low'], addresses: 'building_codes', benefits: ['Institutional', 'Health', 'Environment'] },
-                    { id: 'hia_process', title: 'Introduce Health Impact Assessments (HIAs)', text: 'Develop a formal process for conducting HIAs for all major development projects. This ensures that potential public health risks, including vector-borne diseases, are identified and mitigated before construction begins.', category: 'policy', budgets: ['medium', 'low'], addresses: 'health_assessment', benefits: ['Institutional', 'Health'] },
-
-                    // --- Design & Infrastructure Interventions ---
-                    { id: 'aedes_proof_design', title: 'Mandate Aedes-Proof Design from the Start', text: 'Integrate mosquito-proofing directly into the design guidelines for the master plan. This includes requirements for screened windows/doors, elimination of flat roofs that pool water, and landscaping that ensures proper drainage.', category: 'design', budgets: ['high', 'medium', 'low'], focus: ['new_development'], benefits: ['Environment', 'Health'] },
-                    { id: 'green_infra', title: 'Implement Green Infrastructure for Stormwater', text: 'Promote or require the use of green infrastructure like bioswales, permeable pavements, and rain gardens. These methods manage stormwater effectively, reduce standing water, and provide ecological co-benefits.', category: 'design', budgets: ['high', 'medium'], addresses: 'green_infra', benefits: ['Environment', 'Health'] },
-                     { id: 'drainage_capital', title: 'Launch Capital Project for Drainage Overhaul', text: 'Initiate a large-scale project to redesign and rebuild ineffective storm drains. Consider structural modifications to make them mosquito-proof.', category: 'design', budgets: ['high'], addresses: 'drainage', benefits: ['Environment', 'Health'] },
-
-                    // --- Collaboration & Process Improvements ---
-                    { id: 'task_force', title: 'Establish a "Healthy Cities" Inter-Agency Task Force', text: 'Formally establish a working group with standing members from Planning, Public Works, Health, and Environment. Mandate this group to review development proposals and coordinate on infrastructure projects.', category: 'collaboration', budgets: ['medium', 'low'], addresses: 'collaboration', benefits: ['Institutional'] },
-                    { id: 'participatory_planning', title: 'Integrate Participatory Planning Processes', text: 'Embed community engagement into the planning process itself. Use tools like charrettes and workshops to co-design public spaces and infrastructure improvements with residents, ensuring solutions are locally appropriate and desired.', category: 'collaboration', budgets: ['medium', 'low'], addresses: 'community_engagement', benefits: ['Social', 'Institutional'] },
-                    { id: 'public_health_coord', title: 'Coordinate with Public Health for Targeted Action', text: 'Due to high disease transmission, your planning efforts should be closely coordinated with the Health Department. Use their surveillance data to prioritize infrastructure upgrades in disease hotspots.', category: 'collaboration', budgets: ['high', 'medium', 'low'], condition: () => ['epidemic', 'seasonal'].includes(data.transmission_level), benefits: ['Health', 'Institutional'] },
-                    { id: 'drainage_maintenance', title: 'Develop Proactive Drainage Maintenance Plan', text: 'Work with Public Works to establish and fund a regular maintenance schedule for cleaning and repairing existing storm drains and gutters. This is a crucial low-cost first step.', category: 'collaboration', budgets: ['medium', 'low'], addresses: 'drainage', benefits: ['Environment', 'Health'] }
-                ];
+                const allRecsMap = {
+                    // Vector Control
+                    vc_optimize: { title: 'Optimize Existing Vector Control Programme', text: 'Work with the health sector to maximize coverage and effectiveness of current vector control measures. As a planner, you can support this by providing geospatial data on high-risk areas.', category: 'collaboration', budgets: ['high', 'medium'], benefits: ['Health'] },
+                    vc_novel: { title: 'Support Deployment of Novel Vector Control', text: 'Facilitate the rollout of new technologies like Wolbachia by assisting with community engagement, site selection, and logistical planning.', category: 'collaboration', budgets: ['high', 'medium'], benefits: ['Health', 'Economy'] },
+                    // Disease Prevention
+                    dp_training: { title: 'Advocate for Clinical Training', text: 'While outside direct planning, advocate for and support health department efforts to train physicians in clinical management, as a healthier population makes a more resilient city.', category: 'collaboration', budgets: ['medium', 'low'], benefits: ['Health'] },
+                    dp_vaccination: { title: 'Incorporate Vaccination Hubs in Planning', text: 'When planning community facilities (e.g., community centers, schools), consider their potential dual use as sites for public health campaigns, including vaccinations.', category: 'design', budgets: ['high', 'medium', 'low'], benefits: ['Health', 'Social'] },
+                    // Surveillance
+                    is_realtime: { title: 'Provide Data for Real-time Monitoring', text: 'Establish data-sharing agreements between planning and health departments to overlay case data with zoning, demographic, and infrastructure data.', category: 'collaboration', budgets: ['medium', 'low'], benefits: ['Institutional'] },
+                    is_aedes_dynamics: { title: 'Map High-Risk Areas for Surveillance', text: 'Use planning data (e.g., land use, housing density, known drainage issues) to help the health sector target Aedes population monitoring more effectively.', category: 'collaboration', budgets: ['medium', 'low'], benefits: ['Institutional'] },
+                    is_resistance: { title: 'Plan for Intervention Rotation', text: 'In long-term strategic plans, budget and plan for the possibility that interventions may need to be rotated due to resistance, requiring flexible infrastructure and policies.', category: 'policy', budgets: ['high', 'medium'], benefits: ['Institutional'] },
+                    me_effectiveness: { title: 'Support Program Evaluation', text: 'Collaborate on the monitoring and evaluation of control measures by providing baseline urban data and helping to design quasi-experimental studies around infrastructure projects.', category: 'collaboration', budgets: ['high', 'medium'], benefits: ['Institutional'] },
+                    // Planning & Regulation
+                    pr_construction: { title: 'Update Construction Site Regulations', text: 'Implement and enforce regulations requiring developers to manage water accumulation on construction sites. This is a high-impact, low-cost policy change.', category: 'policy', budgets: ['medium', 'low'], benefits: ['Institutional', 'Health'] },
+                    pr_design: { title: 'Modernize Building & Design Codes', text: 'Lead an initiative to update local building, landscaping, and housing codes to include mandatory mosquito-proofing standards (e.g., screens, drainage specifications, green roof design).', category: 'policy', budgets: ['medium', 'low'], benefits: ['Institutional', 'Health', 'Environment'] },
+                    pr_integrate: { title: 'Integrate Health into the Comprehensive Plan', text: 'Revise the city\'s comprehensive plan to explicitly state public health and vector control as a primary goal, linking it to objectives for housing, infrastructure, and environmental quality.', category: 'policy', budgets: ['low'], benefits: ['Institutional', 'Health'] },
+                    // Urban Services
+                    us_waste: { title: 'Develop a City-Wide Solid Waste Strategy', text: 'Integrate modern solid waste collection, transfer stations, and recycling facilities into the land use plan. This is a foundational service for a healthy city.', category: 'policy', budgets: ['high', 'medium'], benefits: ['Environment', 'Economy'] },
+                    us_water: { title: 'Plan for Universal Piped Water Access', text: 'Develop a long-term capital improvement plan to extend reliable piped water to all neighborhoods, eliminating the primary driver of household water storage.', category: 'design', budgets: ['high'], benefits: ['Environment', 'Health', 'Social'] },
+                    us_drainage: { title: 'Launch a Capital Project for Drainage Overhaul', text: 'Initiate a large-scale project to redesign and rebuild ineffective storm drains. Consider structural modifications to make them mosquito-proof.', category: 'design', budgets: ['high', 'medium'], benefits: ['Environment', 'Health'] },
+                    // Social & Governmental
+                    sm_campaigns: { title: 'Integrate Cleanup Campaigns into City Services', text: 'Provide logistical support (e.g., waste removal, equipment) for community-led cleanup campaigns. Acknowledge and promote these events.', category: 'collaboration', budgets: ['medium', 'low'], benefits: ['Social', 'Environment'] },
+                    ms_communication: { title: 'Establish a "Healthy Cities" Task Force', text: 'Formally establish a working group with standing members from Planning, Public Works, Health, and Environment to coordinate on policies and projects.', category: 'collaboration', budgets: ['low'], benefits: ['Institutional'] },
+                    sm_ownership: { title: 'Empower Neighborhood-Level Planning', text: 'Use participatory planning processes (e.g., charrettes) to co-design public spaces and infrastructure improvements, building community ownership and ensuring local relevance.', category: 'collaboration', budgets: ['high', 'medium'], benefits: ['Social', 'Institutional'] },
+                    ms_whole: { title: 'Champion a "Health in All Policies" Approach', text: 'Advocate for and implement a "Health in All Policies" strategy, ensuring that all major municipal decisions are evaluated for their potential public health impacts.', category: 'policy', budgets: ['low'], benefits: ['Institutional', 'Health'] },
+                };
                 
-                const existingInfraSet = new Set(data.existing_infra);
-
                 if (data.region === 'africa') {
                     recs.strategic_notes.push({ title: 'Special Consideration for Africa', text: 'The document highlights that Africa may be in the earlier stages of dengue emergence. Proactive urban planning now is critical to prevent the large-scale epidemics seen elsewhere. Your efforts have a generational impact potential.' });
                 }
-                
                 if (data.budget === 'low') {
                      recs.strategic_notes.push({ title: 'Focus on Low-Cost, High-Impact Actions', text: 'With a minimal budget, your focus should be on policy, collaboration, and community mobilization. These foundational changes can be highly effective and build the case for future investment in infrastructure.' });
                 }
 
-                allRecommendations.forEach(rec => {
-                    let isRelevant = true;
-                    if (rec.budgets && !rec.budgets.includes(data.budget)) isRelevant = false;
-                    if (rec.focus && !rec.focus.includes(data.planning_focus)) isRelevant = false;
-                    if (rec.condition && !rec.condition()) isRelevant = false;
-                    
-                    if (rec.addresses) {
-                        const challenges = [...data.urban_challenges, ...data.governance_challenges];
-                        if(!challenges.includes(rec.addresses)) isRelevant = false;
-                    }
-                    
-                    if (isRelevant) {
+                Object.keys(allRecsMap).forEach(key => {
+                    const rec = allRecsMap[key];
+                    if (!data.implemented.includes(key) && rec.budgets.includes(data.budget)) {
                         recs[rec.category].push(rec);
                         rec.benefits.forEach(b => recs.coBenefits.add(b));
                     }
@@ -390,78 +367,117 @@
                 return recs;
             },
 
-            displayResults(recs, planning_focus) {
-                this.form.classList.add('hidden');
-                this.navigation.classList.add('hidden');
-                this.resultsContainer.classList.remove('hidden');
-
+            displayResults(recs, data) {
                 const benefitsMap = {
-                    'Health': { icon: '❤️', text: 'Improved Health & Well-being' },
-                    'Economy': { icon: '💰', text: 'Economic Growth & Savings' },
-                    'Environment': { icon: '🌳', text: 'Better Urban Environment' },
-                    'Social': { icon: '🤝', text: 'Community Empowerment & Equity' },
-                    'Institutional': { icon: '🏛️', text: 'Stronger Governance' }
+                    'Health': { icon: '❤️', text: 'Health & Well-being' },
+                    'Economy': { icon: '💰', text: 'Economic Growth' },
+                    'Environment': { icon: '🌳', text: 'Urban Environment' },
+                    'Social': { icon: '🤝', text: 'Community & Equity' },
+                    'Institutional': { icon: '🏛️', text: 'Governance' }
                 };
 
                 let benefitsHtml = '<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">';
                 recs.coBenefits.forEach(benefit => {
-                    benefitsHtml += `
-                        <div class="text-center p-3 bg-gray-100 rounded-lg">
-                            <span class="text-2xl">${benefitsMap[benefit].icon}</span>
-                            <p class="text-sm font-medium mt-1">${benefitsMap[benefit].text}</p>
-                        </div>
-                    `;
+                    benefitsHtml += `<div class="text-center p-3 bg-gray-100 rounded-lg"><span class="text-2xl">${benefitsMap[benefit].icon}</span><p class="text-sm font-medium mt-1">${benefitsMap[benefit].text}</p></div>`;
                 });
                 benefitsHtml += '</div>';
 
                 const generateSectionHtml = (title, recommendations) => {
                     if (!recommendations || recommendations.length === 0) return '';
-                    let html = `<h3 class="text-xl font-bold text-teal-700 mt-8 mb-4 border-b-2 border-teal-200 pb-2">${title}</h3><div class="space-y-4">`;
+                    let html = `<h3 class="text-2xl font-bold text-teal-700 mt-8 mb-4 border-b-2 border-teal-200 pb-2">${title}</h3><div class="space-y-4">`;
                     recommendations.forEach(rec => {
-                        html += `
-                            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                                <h4 class="font-semibold text-lg text-gray-800">${rec.title}</h4>
-                                <p class="text-gray-600 mt-1">${rec.text}</p>
-                            </div>
-                        `;
+                        html += `<div class="bg-gray-50 p-4 rounded-lg border border-gray-200"><h4 class="font-semibold text-lg text-gray-800">${rec.title}</h4><p class="text-gray-600 mt-1">${rec.text}</p></div>`;
                     });
-                    html += '</div>';
-                    return html;
+                    return html + '</div>';
                 };
 
                 this.resultsContainer.innerHTML = `
-                    <div class="text-center">
-                       <h2 class="text-3xl font-bold text-emerald-600">Urban Planner's Action Plan</h2>
-                       <p class="mt-2 text-gray-600">A prioritized action plan for your <strong class="text-emerald-700">${planning_focus.replace(/_/g, ' ')}</strong> project.</p>
-                    </div>
+                    <div id="results-printable">
+                        <div class="text-center">
+                           <h2 class="text-3xl font-bold text-emerald-600">Urban Planner's Action Plan</h2>
+                           <p class="mt-2 text-gray-600">A prioritized action plan for your <strong class="text-emerald-700">${data.planning_focus.replace(/_/g, ' ')}</strong> project.</p>
+                        </div>
 
-                    <div class="mt-8 p-4 bg-teal-50 border-l-4 border-teal-500 rounded-r-lg">
-                        <h3 class="font-semibold text-teal-800">Primary Co-Benefits of Your Plan</h3>
-                        <p class="text-sm text-teal-700 mb-4">Implementing these actions will contribute to broader city goals.</p>
-                        ${benefitsHtml}
+                        <div id="ai-summary-container" class="mt-8">
+                            <h3 class="text-2xl font-bold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">AI-Generated Executive Summary</h3>
+                            <div id="ai-summary-content" class="p-4 bg-teal-50 border-l-4 border-teal-500 rounded-r-lg">
+                                <div class="flex items-center"><div class="animate-spin rounded-full h-5 w-5 border-b-2 border-teal-600 mr-3"></div><span>Generating tailored recommendations...</span></div>
+                            </div>
+                            <p class="text-xs text-gray-400 mt-2 text-right">AI-generated content. Please verify critical information.</p>
+                        </div>
+                        
+                        <div class="mt-8 p-4 bg-gray-100 rounded-lg">
+                            <h3 class="font-semibold text-gray-800">Primary Co-Benefits of Your Plan</h3>
+                            <p class="text-sm text-gray-600 mb-4">Implementing these actions will contribute to broader city goals.</p>
+                            ${benefitsHtml}
+                        </div>
+                        
+                        ${generateSectionHtml('Strategic Notes', recs.strategic_notes)}
+                        ${generateSectionHtml('Recommended Policy & Regulatory Actions', recs.policy)}
+                        ${generateSectionHtml('Recommended Design & Infrastructure Interventions', recs.design)}
+                        ${generateSectionHtml('Recommended Collaboration & Process Improvements', recs.collaboration)}
                     </div>
                     
-                    ${generateSectionHtml('Strategic Notes', recs.strategic_notes)}
-                    ${generateSectionHtml('Policy & Regulatory Actions', recs.policy)}
-                    ${generateSectionHtml('Design & Infrastructure Interventions', recs.design)}
-                    ${generateSectionHtml('Collaboration & Process Improvements', recs.collaboration)}
-
-                    <div class="mt-10 text-center">
-                        <button id="restart-btn" class="bg-gray-500 text-white font-semibold py-2 px-6 rounded-lg hover:bg-gray-600 transition-colors">Start Over</button>
+                    <div id="restart-btn-container" class="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <button id="print-btn" class="w-full sm:w-auto bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>Print / Save as PDF</button>
+                        <button id="restart-btn" class="w-full sm:w-auto bg-gray-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-gray-600 transition-colors">Start Over</button>
                     </div>
                 `;
 
-                document.getElementById('restart-btn').addEventListener('click', () => {
-                    this.resultsContainer.classList.add('hidden');
-                    this.resultsContainer.innerHTML = '';
-                    this.form.reset();
-                    this.form.classList.remove('hidden');
-                    this.navigation.classList.remove('hidden');
-                    this.currentStep = 1;
-                    this.steps.forEach(step => step.classList.remove('active'));
-                    document.getElementById(`step-${this.currentStep}`).classList.add('active');
-                    this.updateButtons();
-                });
+                document.getElementById('restart-btn').addEventListener('click', () => window.location.reload());
+                document.getElementById('print-btn').addEventListener('click', () => window.print());
+            },
+
+            async getAiSummary(data, recommendations) {
+                const summaryContainer = document.getElementById('ai-summary-content');
+                
+                // Construct a detailed prompt for the AI
+                let prompt = `You are an expert urban planning and public health consultant specializing in vector-borne diseases. A city planner has provided the following information about their situation.
+                
+                - Planning Focus: ${data.planning_focus.replace(/_/g, ' ')}
+                - Region: ${data.region.replace(/_/g, ' ')}
+                - Budget Level: ${data.budget}
+                - Current Disease Situation: ${data.transmission_level.replace(/_/g, ' ')}
+                - Implemented Interventions: ${data.implemented.length > 0 ? data.implemented.join(', ') : 'None specified'}
+
+                Based on this context, their generated action plan includes the following key recommendations:
+                ${[...recommendations.policy, ...recommendations.design, ...recommendations.collaboration].map(r => `- ${r.title}`).join('\n')}
+
+                Please provide a concise, actionable executive summary in 3-4 bullet points. Highlight the most critical "first steps" they should take. The tone should be encouraging and professional. Structure the output as a simple HTML list (<ul> and <li>).`;
+
+                try {
+                    // NOTE: In a real application, the API key would be handled securely and not left blank.
+                    // For this environment, an empty key is used, and the platform provides it at runtime.
+                    const apiKey = ""; 
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                    const payload = {
+                        contents: [{ parts: [{ text: prompt }] }],
+                    };
+                    
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (text) {
+                        summaryContainer.innerHTML = text;
+                    } else {
+                        throw new Error("No content received from AI.");
+                    }
+
+                } catch (error) {
+                    console.error("AI summary generation failed:", error);
+                    summaryContainer.innerHTML = '<p class="text-red-600">Sorry, the AI summary could not be generated at this time. Please refer to the detailed plan below.</p>';
+                }
             }
         };
 
