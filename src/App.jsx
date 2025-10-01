@@ -42,23 +42,36 @@ const RoleSelector = ({ onRoleSelect }) => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50 flex items-center justify-center p-4">
-      <div className="max-w-4xl w-full">
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-800 mb-4">
-            Urban Planner's Aedes Action Tool
-          </h1>
-          <p className="text-xl text-gray-600 mb-8">
-            Choose your role to get started
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center p-4">
+      <div className="max-w-5xl w-full">
+        {/* UN-HABITAT Header */}
+        <div className="text-center mb-8">
+          <div className="flex items-center justify-center mb-6">
+            <img 
+              src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1759320275254-Logo-UN-Habitat.jpg" 
+              alt="UN-HABITAT Logo" 
+              className="h-20 w-auto mr-4"
+            />
+            <div className="text-left">
+              <h1 className="text-4xl font-bold text-gray-800 leading-tight">
+                Urban Planner's Aedes Action Tool
+              </h1>
+              <p className="text-lg text-gray-600 mt-1">
+                UN-HABITAT Partnership Initiative
+              </p>
+            </div>
+          </div>
+          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+            Integrate public health into urban planning practice to design resilient, mosquito-free cities. Choose your role to get started.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {roles.map((role) => (
             <div
               key={role.id}
               onClick={() => onRoleSelect(role.id)}
-              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:scale-105 border border-gray-100"
+              className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all cursor-pointer transform hover:scale-105 border border-gray-100 hover:border-cyan-200"
             >
               <div className="flex items-center mb-4">
                 <div className={`${role.color} p-3 rounded-lg text-white mr-4`}>
@@ -71,15 +84,15 @@ const RoleSelector = ({ onRoleSelect }) => {
           ))}
         </div>
 
-        {/* Make the login section much more prominent */}
-        <div className="mt-12 text-center">
-          <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-teal-200">
+        {/* Login Section */}
+        <div className="text-center">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-cyan-200">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
               Already have an account?
             </h3>
             <button
               onClick={() => onRoleSelect('login')}
-              className="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto text-lg"
+              className="bg-cyan-600 hover:bg-cyan-700 text-white font-semibold py-4 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto text-lg shadow-md hover:shadow-lg"
             >
               <SafeIcon icon={FiLogIn} className="mr-2 text-xl" />
               Sign In Here
@@ -88,6 +101,11 @@ const RoleSelector = ({ onRoleSelect }) => {
               Use demo credentials: demo@example.com / demo123
             </p>
           </div>
+        </div>
+
+        {/* Footer with UN-HABITAT branding */}
+        <div className="text-center mt-8 text-sm text-gray-500">
+          <p>Powered by UN-HABITAT • Supporting sustainable urban development worldwide</p>
         </div>
       </div>
     </div>
@@ -109,7 +127,7 @@ const MainApp = () => {
         name: `Demo ${roleId.charAt(0).toUpperCase() + roleId.slice(1)}`,
         email: `demo-${roleId}@example.com`,
         role: roleId,
-        organization: 'Demo Organization',
+        organization: 'UN-HABITAT Partner Organization',
         createdAt: new Date().toISOString()
       };
       
@@ -154,10 +172,18 @@ const MainApp = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <h1 className="text-xl font-semibold text-gray-800">
-                Urban Planner's Tool
-              </h1>
-              <span className="ml-3 px-2 py-1 bg-teal-100 text-teal-800 text-sm rounded-full">
+              <img 
+                src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1759320275254-Logo-UN-Habitat.jpg" 
+                alt="UN-HABITAT Logo" 
+                className="h-10 w-auto mr-3"
+              />
+              <div>
+                <h1 className="text-lg font-semibold text-gray-800">
+                  Urban Planner's Tool
+                </h1>
+                <p className="text-xs text-gray-500">UN-HABITAT Initiative</p>
+              </div>
+              <span className="ml-4 px-2 py-1 bg-cyan-100 text-cyan-800 text-sm rounded-full">
                 {user.role.charAt(0).toUpperCase() + user.role.slice(1)}
               </span>
             </div>
@@ -169,7 +195,7 @@ const MainApp = () => {
                   onClick={() => setCurrentView('questionnaire')}
                   className={`px-3 py-2 rounded-md text-sm font-medium ${
                     currentView === 'questionnaire'
-                      ? 'bg-teal-100 text-teal-700'
+                      ? 'bg-cyan-100 text-cyan-700'
                       : 'text-gray-600 hover:text-gray-900'
                   }`}
                 >
@@ -182,7 +208,7 @@ const MainApp = () => {
                     onClick={() => setCurrentView('editor')}
                     className={`px-3 py-2 rounded-md text-sm font-medium ${
                       currentView === 'editor'
-                        ? 'bg-teal-100 text-teal-700'
+                        ? 'bg-cyan-100 text-cyan-700'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
@@ -196,7 +222,7 @@ const MainApp = () => {
                     onClick={() => setCurrentView('admin')}
                     className={`px-3 py-2 rounded-md text-sm font-medium ${
                       currentView === 'admin'
-                        ? 'bg-teal-100 text-teal-700'
+                        ? 'bg-cyan-100 text-cyan-700'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >

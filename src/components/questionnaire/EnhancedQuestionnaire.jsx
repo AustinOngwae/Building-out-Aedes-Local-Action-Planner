@@ -39,9 +39,21 @@ const EnhancedQuestionnaire = () => {
         description: 'Define the scope of your work and the local public health context.',
         required: true,
         options: [
-          { value: 'new_development', label: 'New Development / Master Plan', description: 'Designing a new district or large-scale project.' },
-          { value: 'retrofitting', label: 'Retrofitting / Urban Regeneration', description: 'Upgrading an existing neighborhood.' },
-          { value: 'policy', label: 'City-Wide Policy & Zoning', description: 'Developing comprehensive plans or codes.' }
+          {
+            value: 'new_development',
+            label: 'New Development / Master Plan',
+            description: 'Designing a new district or large-scale project.'
+          },
+          {
+            value: 'retrofitting',
+            label: 'Retrofitting / Urban Regeneration',
+            description: 'Upgrading an existing neighborhood.'
+          },
+          {
+            value: 'policy',
+            label: 'City-Wide Policy & Zoning',
+            description: 'Developing comprehensive plans or codes.'
+          }
         ]
       },
       {
@@ -78,9 +90,21 @@ const EnhancedQuestionnaire = () => {
         title: 'What is the approximate budget for this initiative?',
         required: true,
         options: [
-          { value: 'high', label: 'Well-funded', description: 'Dedicated budget for capital projects and new programs.' },
-          { value: 'medium', label: 'Limited', description: 'Funding for operational costs or small grants.' },
-          { value: 'low', label: 'Minimal / Unfunded', description: 'Must rely on existing resources and no-cost policy changes.' }
+          {
+            value: 'high',
+            label: 'Well-funded',
+            description: 'Dedicated budget for capital projects and new programs.'
+          },
+          {
+            value: 'medium',
+            label: 'Limited',
+            description: 'Funding for operational costs or small grants.'
+          },
+          {
+            value: 'low',
+            label: 'Minimal / Unfunded',
+            description: 'Must rely on existing resources and no-cost policy changes.'
+          }
         ]
       }
     ];
@@ -96,7 +120,7 @@ const EnhancedQuestionnaire = () => {
   const handleNext = () => {
     const currentQuestions = questions.filter(q => q.stepId === currentStep);
     const requiredQuestions = currentQuestions.filter(q => q.required);
-    
+
     // Validate required fields
     const isValid = requiredQuestions.every(q => {
       const value = formData[q.id];
@@ -105,7 +129,7 @@ const EnhancedQuestionnaire = () => {
       }
       return value && value.trim() !== '';
     });
-    
+
     if (!isValid) {
       alert('Please complete all required fields before continuing.');
       return;
@@ -120,15 +144,13 @@ const EnhancedQuestionnaire = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    
     // Simulate processing
     await new Promise(resolve => setTimeout(resolve, 2000));
-    
+
     // Generate recommendations based on form data
     const recs = generateRecommendations(formData);
     setRecommendations(recs);
     setShowResults(true);
-    
     setLoading(false);
   };
 
@@ -198,7 +220,7 @@ const EnhancedQuestionnaire = () => {
             {question.options.map((option, index) => (
               <label
                 key={index}
-                className="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors"
+                className="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-cyan-50 transition-colors"
               >
                 <input
                   type="radio"
@@ -206,7 +228,7 @@ const EnhancedQuestionnaire = () => {
                   value={option.value}
                   checked={value === option.value}
                   onChange={(e) => handleInputChange(question.id, e.target.value)}
-                  className="mt-1 h-4 w-4 text-teal-600 border-gray-300 focus:ring-teal-500"
+                  className="mt-1 h-4 w-4 text-cyan-600 border-gray-300 focus:ring-cyan-500"
                 />
                 <div className="ml-3">
                   <span className="font-semibold block">{option.label}</span>
@@ -225,7 +247,7 @@ const EnhancedQuestionnaire = () => {
             {question.options.map((option, index) => (
               <label
                 key={index}
-                className="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-teal-50"
+                className="flex items-start p-3 border rounded-lg cursor-pointer hover:bg-cyan-50"
               >
                 <input
                   type="checkbox"
@@ -238,7 +260,7 @@ const EnhancedQuestionnaire = () => {
                       : currentValues.filter(v => v !== option.value);
                     handleInputChange(question.id, newValues);
                   }}
-                  className="mt-1 h-4 w-4 text-teal-600 border-gray-300 rounded focus:ring-teal-500"
+                  className="mt-1 h-4 w-4 text-cyan-600 border-gray-300 rounded focus:ring-cyan-500"
                 />
                 <div className="ml-3">
                   <span className="font-semibold block">{option.label}</span>
@@ -256,7 +278,7 @@ const EnhancedQuestionnaire = () => {
           <select
             value={value || ''}
             onChange={(e) => handleInputChange(question.id, e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
             required={question.required}
           >
             <option value="" disabled>-- Please select an option --</option>
@@ -274,7 +296,7 @@ const EnhancedQuestionnaire = () => {
             type="text"
             value={value || ''}
             onChange={(e) => handleInputChange(question.id, e.target.value)}
-            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-cyan-500"
             placeholder={question.placeholder || 'Enter your response'}
             required={question.required}
           />
@@ -292,7 +314,7 @@ const EnhancedQuestionnaire = () => {
     return (
       <div className="max-w-4xl mx-auto p-6">
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cyan-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Generating your personalized action plan...</p>
         </div>
       </div>
@@ -311,10 +333,21 @@ const EnhancedQuestionnaire = () => {
     return (
       <div className="max-w-6xl mx-auto p-6">
         <div className="bg-white rounded-2xl shadow-lg p-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-emerald-600">Urban Planner's Action Plan</h1>
+          {/* UN-HABITAT Header */}
+          <div className="text-center mb-8 border-b border-gray-200 pb-6">
+            <div className="flex items-center justify-center mb-4">
+              <img 
+                src="https://quest-media-storage-bucket.s3.us-east-2.amazonaws.com/1759320275254-Logo-UN-Habitat.jpg" 
+                alt="UN-HABITAT Logo" 
+                className="h-16 w-auto mr-4"
+              />
+              <div>
+                <h1 className="text-3xl font-bold text-cyan-600">Urban Planner's Action Plan</h1>
+                <p className="text-sm text-gray-500">UN-HABITAT Partnership Initiative</p>
+              </div>
+            </div>
             <p className="mt-2 text-gray-600">
-              A prioritized action plan for your <strong className="text-emerald-700">
+              A prioritized action plan for your <strong className="text-cyan-700">
                 {formData.planning_focus?.replace(/_/g, ' ')}
               </strong> project.
             </p>
@@ -337,7 +370,7 @@ const EnhancedQuestionnaire = () => {
           {/* Recommendations Sections */}
           {recommendations.strategic_notes.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">
+              <h3 className="text-2xl font-bold text-cyan-700 mb-4 border-b-2 border-cyan-200 pb-2">
                 Strategic Notes
               </h3>
               <div className="space-y-4">
@@ -353,7 +386,7 @@ const EnhancedQuestionnaire = () => {
 
           {recommendations.policy.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">
+              <h3 className="text-2xl font-bold text-cyan-700 mb-4 border-b-2 border-cyan-200 pb-2">
                 Recommended Policy & Regulatory Actions
               </h3>
               <div className="space-y-4">
@@ -369,7 +402,7 @@ const EnhancedQuestionnaire = () => {
 
           {recommendations.collaboration.length > 0 && (
             <div className="mt-8">
-              <h3 className="text-2xl font-bold text-teal-700 mb-4 border-b-2 border-teal-200 pb-2">
+              <h3 className="text-2xl font-bold text-cyan-700 mb-4 border-b-2 border-cyan-200 pb-2">
                 Recommended Collaboration & Process Improvements
               </h3>
               <div className="space-y-4">
@@ -410,6 +443,12 @@ const EnhancedQuestionnaire = () => {
               Start Over
             </button>
           </div>
+
+          {/* UN-HABITAT Footer */}
+          <div className="mt-8 pt-6 border-t border-gray-200 text-center text-sm text-gray-500">
+            <p>This action plan is developed in partnership with UN-HABITAT</p>
+            <p>Supporting sustainable urban development and public health integration worldwide</p>
+          </div>
         </div>
       </div>
     );
@@ -426,7 +465,7 @@ const EnhancedQuestionnaire = () => {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-teal-600 h-2 rounded-full transition-all duration-300"
+              className="bg-cyan-600 h-2 rounded-full transition-all duration-300"
               style={{ width: `${(currentStep / totalSteps) * 100}%` }}
             ></div>
           </div>
@@ -445,9 +484,7 @@ const EnhancedQuestionnaire = () => {
                   <p className="text-gray-600 text-sm">{question.description}</p>
                 )}
               </div>
-              
               {renderQuestion(question)}
-              
               {/* Suggestion System for reviewers/editors */}
               {user && ['reviewer', 'editor', 'admin'].includes(user.role) && (
                 <SuggestionSystem
@@ -473,7 +510,7 @@ const EnhancedQuestionnaire = () => {
           {currentStep === totalSteps ? (
             <button
               onClick={handleSubmit}
-              className="flex items-center bg-emerald-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-emerald-700 transition-colors"
+              className="flex items-center bg-cyan-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-cyan-700 transition-colors"
             >
               <SafeIcon icon={FiSend} className="mr-2" />
               Generate Action Plan
@@ -481,7 +518,7 @@ const EnhancedQuestionnaire = () => {
           ) : (
             <button
               onClick={handleNext}
-              className="flex items-center bg-teal-600 text-white px-6 py-2 rounded-lg hover:bg-teal-700 transition-colors"
+              className="flex items-center bg-cyan-600 text-white px-6 py-2 rounded-lg hover:bg-cyan-700 transition-colors"
             >
               Next
               <SafeIcon icon={FiChevronRight} className="ml-2" />
