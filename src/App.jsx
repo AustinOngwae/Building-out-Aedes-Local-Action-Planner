@@ -7,7 +7,7 @@ import EnhancedQuestionnaire from './components/questionnaire/EnhancedQuestionna
 import SafeIcon from './components/common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiUser, FiLogOut, FiSettings, FiEdit, FiFileText, FiEye } = FiIcons;
+const { FiUser, FiLogOut, FiSettings, FiEdit, FiFileText, FiEye, FiLogIn } = FiIcons;
 
 const RoleSelector = ({ onRoleSelect }) => {
   const roles = [
@@ -71,16 +71,23 @@ const RoleSelector = ({ onRoleSelect }) => {
           ))}
         </div>
 
-        <div className="text-center mt-8">
-          <p className="text-gray-500">
-            Already have an account?{' '}
+        {/* Make the login section much more prominent */}
+        <div className="mt-12 text-center">
+          <div className="bg-white rounded-2xl p-8 shadow-lg border-2 border-teal-200">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              Already have an account?
+            </h3>
             <button
               onClick={() => onRoleSelect('login')}
-              className="text-teal-600 hover:text-teal-700 font-medium"
+              className="bg-teal-600 hover:bg-teal-700 text-white font-semibold py-4 px-8 rounded-lg transition-colors flex items-center justify-center mx-auto text-lg"
             >
-              Sign in here
+              <SafeIcon icon={FiLogIn} className="mr-2 text-xl" />
+              Sign In Here
             </button>
-          </p>
+            <p className="text-sm text-gray-500 mt-3">
+              Use demo credentials: demo@example.com / demo123
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -111,7 +118,19 @@ const MainApp = () => {
   };
 
   const getViewComponent = () => {
-    if (!user) return <RoleSelector onRoleSelect={handleRoleSelect} />;
+    if (!user) {
+      return (
+        <div>
+          <RoleSelector onRoleSelect={handleRoleSelect} />
+          {showLogin && (
+            <LoginForm 
+              onClose={() => setShowLogin(false)}
+              onSuccess={() => setShowLogin(false)}
+            />
+          )}
+        </div>
+      );
+    }
 
     switch (currentView) {
       case 'admin':
@@ -125,12 +144,7 @@ const MainApp = () => {
   };
 
   if (!user) {
-    return (
-      <div>
-        <RoleSelector onRoleSelect={handleRoleSelect} />
-        {showLogin && <LoginForm onClose={() => setShowLogin(false)} />}
-      </div>
-    );
+    return getViewComponent();
   }
 
   return (

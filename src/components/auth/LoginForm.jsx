@@ -3,9 +3,9 @@ import { useAuth } from './AuthProvider';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiUser, FiLock, FiEye, FiEyeOff } = FiIcons;
+const { FiUser, FiLock, FiEye, FiEyeOff, FiX } = FiIcons;
 
-const LoginForm = ({ onClose }) => {
+const LoginForm = ({ onClose, onSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -16,6 +16,8 @@ const LoginForm = ({ onClose }) => {
     organization: ''
   });
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
   const { login } = useAuth();
 
   const roles = [
@@ -27,12 +29,22 @@ const LoginForm = ({ onClose }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     setLoading(true);
 
     try {
+      // Validate required fields
+      if (!formData.email || !formData.password) {
+        throw new Error('Email and password are required');
+      }
+
+      if (!isLogin && !formData.name) {
+        throw new Error('Name is required for registration');
+      }
+
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       const userData = {
         id: Date.now(),
         email: formData.email,
@@ -43,9 +55,15 @@ const LoginForm = ({ onClose }) => {
       };
 
       login(userData);
+      
+      if (onSuccess) {
+        onSuccess();
+      }
+      
       onClose();
     } catch (error) {
       console.error('Authentication failed:', error);
+      setError(error.message || 'Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -56,11 +74,24 @@ const LoginForm = ({ onClose }) => {
       ...prev,
       [e.target.name]: e.target.value
     }));
+    // Clear error when user starts typing
+    if (error) {
+      setError('');
+    }
   };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-white rounded-2xl p-8 max-w-md w-full max-h-[90vh] overflow-y-auto relative">
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="Close"
+        >
+          <SafeIcon icon={FiX} className="text-xl" />
+        </button>
+
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold text-gray-800">
             {isLogin ? 'Welcome Back' : 'Create Account'}
@@ -69,6 +100,12 @@ const LoginForm = ({ onClose }) => {
             {isLogin ? 'Sign in to continue' : 'Join our planning community'}
           </p>
         </div>
+
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border border-red-300 text-red-700 rounded-lg text-sm">
+            {error}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {!isLogin && (
@@ -123,6 +160,7 @@ const LoginForm = ({ onClose }) => {
                 className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500"
                 placeholder="Enter your password"
                 required
+                minLength="6"
               />
               <button
                 type="button"
@@ -192,19 +230,29 @@ const LoginForm = ({ onClose }) => {
 
         <div className="mt-6 text-center">
           <button
-            onClick={() => setIsLogin(!isLogin)}
+            onClick={() => {
+              setIsLogin(!isLogin);
+              setError('');
+              setFormData(prev => ({
+                ...prev,
+                name: '',
+                organization: ''
+              }));
+            }}
             className="text-teal-600 hover:text-teal-700 text-sm font-medium"
           >
             {isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in"}
           </button>
         </div>
 
-        <button
-          onClick={onClose}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-        >
-          ✕
-        </button>
+        {/* Demo credentials helper */}
+        <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+          <p className="text-xs text-blue-700 font-medium mb-1">Demo Credentials:</p>
+          <p className="text-xs text-blue-600">
+            Email: demo@example.com<br />
+            Password: demo123
+          </p>
+        </div>
       </div>
     </div>
   );
