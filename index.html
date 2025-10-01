@@ -75,7 +75,8 @@
 
                     <h3 class="font-semibold text-gray-700 mb-3">What is the current Aedes-borne disease situation in this area?</h3>
                     <div class="space-y-4">
-                        <select name="transmission_level" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+                        <select name="transmission_level" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required>
+                            <option value="" disabled selected>-- Please select an option --</option>
                             <option value="epidemic">Epidemic Transmission (Regular, large-scale outbreaks)</option>
                             <option value="seasonal">Regular Seasonal Transmission (Predictable annual increases)</option>
                             <option value="sporadic">Sporadic Transmission (Occasional, isolated cases)</option>
@@ -84,9 +85,71 @@
                     </div>
                 </div>
 
-                <!-- Step 2: Built Environment Audit -->
+                <!-- Step 2: Regional Context & Capacity -->
                 <div id="step-2" class="form-section">
-                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 2: Built Environment Audit</h2>
+                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 2: Regional Context & Capacity</h2>
+                    <p class="mb-6 text-gray-500">Understanding your region and available resources helps tailor the plan.</p>
+
+                    <h3 class="font-semibold text-gray-700 mb-3">Which region best describes your planning area?</h3>
+                    <div class="space-y-4 mb-8">
+                        <select name="region" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500" required>
+                            <option value="" disabled selected>-- Please select a region --</option>
+                            <option value="asia_pacific">Asia-Pacific</option>
+                            <option value="americas">The Americas (South, Central, North)</option>
+                            <option value="africa">Africa</option>
+                            <option value="europe_middle_east">Europe / Middle East (areas with emerging risk)</option>
+                        </select>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-700 mb-3">What is the approximate budget for this initiative?</h3>
+                    <div class="space-y-4 mb-8">
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="radio" name="budget" value="high" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500" required>
+                            <span class="ml-4">
+                                <strong class="font-semibold block">Well-funded</strong>
+                                <span class="text-sm text-gray-500">Dedicated budget for capital projects and new programs.</span>
+                            </span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="radio" name="budget" value="medium" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4">
+                                <strong class="font-semibold block">Limited</strong>
+                                <span class="text-sm text-gray-500">Funding for operational costs or small projects, may rely on grants.</span>
+                            </span>
+                        </label>
+                        <label class="flex items-center p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="radio" name="budget" value="low" class="h-5 w-5 custom-radio border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4">
+                                <strong class="font-semibold block">Minimal / Unfunded</strong>
+                                <span class="text-sm text-gray-500">Must rely on existing resources and low-cost policy changes.</span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <h3 class="font-semibold text-gray-700 mb-3">Which of these key systems are already in place and functional?</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="checkbox" name="existing_infra" value="waste" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4"><strong class="font-semibold block">Effective Solid Waste Management</strong></span>
+                        </label>
+                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="checkbox" name="existing_infra" value="water" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4"><strong class="font-semibold block">Reliable Piped Water Supply</strong></span>
+                        </label>
+                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="checkbox" name="existing_infra" value="surveillance" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4"><strong class="font-semibold block">Proactive Vector Surveillance</strong></span>
+                        </label>
+                        <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
+                            <input type="checkbox" name="existing_infra" value="community" class="h-5 w-5 mt-1 custom-checkbox rounded border-gray-300 text-teal-600 focus:ring-teal-500">
+                            <span class="ml-4"><strong class="font-semibold block">Active Community Engagement</strong></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Step 3: Built Environment Audit -->
+                <div id="step-3" class="form-section">
+                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 3: Built Environment Audit</h2>
                     <p class="mb-6 text-gray-500">Identify key physical characteristics and infrastructure gaps in your planning area.</p>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
@@ -134,9 +197,9 @@
                     </div>
                 </div>
 
-                <!-- Step 3: Policy & Regulatory Framework -->
-                <div id="step-3" class="form-section">
-                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 3: Policy & Regulatory Framework</h2>
+                <!-- Step 4: Policy & Regulatory Framework -->
+                <div id="step-4" class="form-section">
+                    <h2 class="text-2xl font-semibold mb-2 text-teal-600">Step 4: Policy & Regulatory Framework</h2>
                     <p class="mb-6 text-gray-500">Assess your current policy tools, collaborative processes, and regulatory environment.</p>
                      <div class="space-y-4">
                         <label class="flex items-start p-4 border rounded-lg cursor-pointer hover:bg-teal-50 transition-colors">
@@ -189,7 +252,7 @@
     <script>
         const app = {
             currentStep: 1,
-            totalSteps: 3,
+            totalSteps: 4,
             form: document.getElementById('planner-form'),
             steps: document.querySelectorAll('.form-section'),
             prevBtn: document.getElementById('prev-btn'),
@@ -256,6 +319,9 @@
                 const data = {
                     planning_focus: formData.get('planning_focus'),
                     transmission_level: formData.get('transmission_level'),
+                    region: formData.get('region'),
+                    budget: formData.get('budget'),
+                    existing_infra: formData.getAll('existing_infra'),
                     urban_challenges: formData.getAll('urban_challenges'),
                     governance_challenges: formData.getAll('governance_challenges'),
                 };
@@ -266,102 +332,59 @@
 
             getRecommendations(data) {
                 const recs = {
+                    strategic_notes: [],
                     policy: [],
                     design: [],
                     collaboration: [],
                     coBenefits: new Set()
                 };
 
-                // Planner-specific recommendations
-                switch(data.planning_focus) {
-                    case 'new_development':
-                        recs.design.push({
-                            title: 'Mandate Aedes-Proof Design from the Start',
-                            text: 'Integrate mosquito-proofing directly into the design guidelines for the master plan. This includes requirements for screened windows/doors, elimination of flat roofs that pool water, and landscaping that ensures proper drainage.',
-                            benefits: ['Environment', 'Health']
-                        });
-                        break;
-                    case 'retrofitting':
-                         recs.policy.push({
-                            title: 'Create a Capital Improvement Plan for Health',
-                            text: 'Develop a phased capital improvement plan that prioritizes upgrading drainage systems, retrofitting public housing with screens, and investing in consistent solid waste services for the regeneration area.',
-                            benefits: ['Environment', 'Social', 'Health']
-                        });
-                        break;
-                    case 'policy':
-                        recs.policy.push({
-                            title: 'Update Comprehensive Plan & Zoning Ordinance',
-                            text: 'Revise the city\'s comprehensive plan to explicitly state public health and vector control as a primary goal. Update the zoning ordinance with standards that promote Aedes-free environments (e.g., green infrastructure requirements, building design standards).',
-                            benefits: ['Institutional', 'Health']
-                        });
-                        break;
-                }
+                const allRecommendations = [
+                    // --- Policy & Regulatory Actions ---
+                    { id: 'cip_health', title: 'Create a Capital Improvement Plan for Health', text: 'Develop a phased capital improvement plan that prioritizes upgrading drainage systems, retrofitting public housing with screens, and investing in consistent solid waste services for the regeneration area.', category: 'policy', budgets: ['high', 'medium'], focus: ['retrofitting'], benefits: ['Environment', 'Social', 'Health'] },
+                    { id: 'comp_plan', title: 'Update Comprehensive Plan & Zoning Ordinance', text: 'Revise the city\'s comprehensive plan to explicitly state public health and vector control as a primary goal. Update the zoning ordinance with standards that promote Aedes-free environments.', category: 'policy', budgets: ['high', 'medium', 'low'], focus: ['policy'], benefits: ['Institutional', 'Health'] },
+                    { id: 'waste_land_use', title: 'Integrate Waste Management into Land Use Planning', text: 'Zone for and invest in modern, intermediate solid waste collection and management sites. Partner with the private sector to create economic incentives for recycling and waste reduction.', category: 'policy', budgets: ['high', 'medium'], addresses: 'waste_management', benefits: ['Environment', 'Economy'] },
+                    { id: 'construction_ord', title: 'Enforce Construction Site Management Ordinances', text: 'Implement and enforce regulations that require developers to manage water accumulation on construction sites. This could include regular inspections and penalties for non-compliance.', category: 'policy', budgets: ['medium', 'low'], addresses: 'construction', benefits: ['Institutional', 'Health'] },
+                    { id: 'modernize_codes', title: 'Modernize Building & Housing Codes', text: 'Lead an initiative to update local building and housing codes to include mandatory mosquito-proofing standards. This creates a long-term, sustainable solution that requires minimal ongoing cost.', category: 'policy', budgets: ['medium', 'low'], addresses: 'building_codes', benefits: ['Institutional', 'Health', 'Environment'] },
+                    { id: 'hia_process', title: 'Introduce Health Impact Assessments (HIAs)', text: 'Develop a formal process for conducting HIAs for all major development projects. This ensures that potential public health risks, including vector-borne diseases, are identified and mitigated before construction begins.', category: 'policy', budgets: ['medium', 'low'], addresses: 'health_assessment', benefits: ['Institutional', 'Health'] },
 
-                // Urban Challenges -> Design & Policy Recs
-                if (data.urban_challenges.includes('drainage') || data.urban_challenges.includes('green_infra')) {
-                    recs.design.push({
-                        title: 'Implement Green Infrastructure for Stormwater',
-                        text: 'Promote or require the use of green infrastructure like bioswales, permeable pavements, and rain gardens. These methods manage stormwater effectively, reduce standing water, and provide ecological co-benefits.',
-                        benefits: ['Environment', 'Health']
-                    });
-                }
-                if (data.urban_challenges.includes('waste_management')) {
-                     recs.policy.push({
-                        title: 'Integrate Waste Management into Land Use Planning',
-                        text: 'Zone for and invest in modern, intermediate solid waste collection and management sites. Partner with the private sector to create economic incentives for recycling and waste reduction.',
-                        benefits: ['Environment', 'Economy']
-                    });
-                }
-                if (data.urban_challenges.includes('construction')) {
-                    recs.policy.push({
-                        title: 'Enforce Construction Site Management Ordinances',
-                        text: 'Implement and enforce regulations that require developers to manage water accumulation on construction sites. This could include regular inspections and penalties for non-compliance.',
-                        benefits: ['Institutional', 'Health']
-                    });
-                }
+                    // --- Design & Infrastructure Interventions ---
+                    { id: 'aedes_proof_design', title: 'Mandate Aedes-Proof Design from the Start', text: 'Integrate mosquito-proofing directly into the design guidelines for the master plan. This includes requirements for screened windows/doors, elimination of flat roofs that pool water, and landscaping that ensures proper drainage.', category: 'design', budgets: ['high', 'medium', 'low'], focus: ['new_development'], benefits: ['Environment', 'Health'] },
+                    { id: 'green_infra', title: 'Implement Green Infrastructure for Stormwater', text: 'Promote or require the use of green infrastructure like bioswales, permeable pavements, and rain gardens. These methods manage stormwater effectively, reduce standing water, and provide ecological co-benefits.', category: 'design', budgets: ['high', 'medium'], addresses: 'green_infra', benefits: ['Environment', 'Health'] },
+                     { id: 'drainage_capital', title: 'Launch Capital Project for Drainage Overhaul', text: 'Initiate a large-scale project to redesign and rebuild ineffective storm drains. Consider structural modifications to make them mosquito-proof.', category: 'design', budgets: ['high'], addresses: 'drainage', benefits: ['Environment', 'Health'] },
 
-                // Governance Challenges -> Collaboration & Policy Recs
-                 if (data.governance_challenges.includes('collaboration')) {
-                    recs.collaboration.push({
-                        title: 'Establish a "Healthy Cities" Inter-Agency Task Force',
-                        text: 'Formally establish a working group with standing members from Planning, Public Works, Health, and Environment. Mandate this group to review development proposals and coordinate on infrastructure projects.',
-                        benefits: ['Institutional']
-                    });
-                }
-                 if (data.governance_challenges.includes('building_codes')) {
-                    recs.policy.push({
-                        title: 'Modernize Building & Housing Codes',
-                        text: 'Lead an initiative to update local building and housing codes to include mandatory mosquito-proofing standards. This creates a long-term, sustainable solution that requires minimal ongoing cost.',
-                        benefits: ['Institutional', 'Health', 'Environment']
-                    });
-                }
-                 if (data.governance_challenges.includes('health_assessment')) {
-                    recs.policy.push({
-                        title: 'Introduce Health Impact Assessments (HIAs)',
-                        text: 'Develop a formal process for conducting HIAs for all major development projects. This ensures that potential public health risks, including vector-borne diseases, are identified and mitigated before construction begins.',
-                        benefits: ['Institutional', 'Health']
-                    });
-                }
-                if (data.governance_challenges.includes('community_engagement')) {
-                     recs.collaboration.push({
-                        title: 'Integrate Participatory Planning Processes',
-                        text: 'Embed community engagement into the planning process itself. Use tools like charrettes and workshops to co-design public spaces and infrastructure improvements with residents, ensuring solutions are locally appropriate and desired.',
-                        benefits: ['Social', 'Institutional']
-                    });
+                    // --- Collaboration & Process Improvements ---
+                    { id: 'task_force', title: 'Establish a "Healthy Cities" Inter-Agency Task Force', text: 'Formally establish a working group with standing members from Planning, Public Works, Health, and Environment. Mandate this group to review development proposals and coordinate on infrastructure projects.', category: 'collaboration', budgets: ['medium', 'low'], addresses: 'collaboration', benefits: ['Institutional'] },
+                    { id: 'participatory_planning', title: 'Integrate Participatory Planning Processes', text: 'Embed community engagement into the planning process itself. Use tools like charrettes and workshops to co-design public spaces and infrastructure improvements with residents, ensuring solutions are locally appropriate and desired.', category: 'collaboration', budgets: ['medium', 'low'], addresses: 'community_engagement', benefits: ['Social', 'Institutional'] },
+                    { id: 'public_health_coord', title: 'Coordinate with Public Health for Targeted Action', text: 'Due to high disease transmission, your planning efforts should be closely coordinated with the Health Department. Use their surveillance data to prioritize infrastructure upgrades in disease hotspots.', category: 'collaboration', budgets: ['high', 'medium', 'low'], condition: () => ['epidemic', 'seasonal'].includes(data.transmission_level), benefits: ['Health', 'Institutional'] },
+                    { id: 'drainage_maintenance', title: 'Develop Proactive Drainage Maintenance Plan', text: 'Work with Public Works to establish and fund a regular maintenance schedule for cleaning and repairing existing storm drains and gutters. This is a crucial low-cost first step.', category: 'collaboration', budgets: ['medium', 'low'], addresses: 'drainage', benefits: ['Environment', 'Health'] }
+                ];
+                
+                const existingInfraSet = new Set(data.existing_infra);
+
+                if (data.region === 'africa') {
+                    recs.strategic_notes.push({ title: 'Special Consideration for Africa', text: 'The document highlights that Africa may be in the earlier stages of dengue emergence. Proactive urban planning now is critical to prevent the large-scale epidemics seen elsewhere. Your efforts have a generational impact potential.' });
                 }
                 
-                // Add a health context recommendation
-                if(data.transmission_level === 'epidemic' || data.transmission_level === 'seasonal') {
-                     recs.collaboration.push({
-                        title: 'Coordinate with Public Health for Targeted Action',
-                        text: 'Due to high disease transmission, your planning efforts should be closely coordinated with the Health Department. Use their surveillance data to prioritize infrastructure upgrades in disease hotspots.',
-                        benefits: ['Health', 'Institutional']
-                    });
+                if (data.budget === 'low') {
+                     recs.strategic_notes.push({ title: 'Focus on Low-Cost, High-Impact Actions', text: 'With a minimal budget, your focus should be on policy, collaboration, and community mobilization. These foundational changes can be highly effective and build the case for future investment in infrastructure.' });
                 }
 
-                // Consolidate co-benefits
-                [...recs.policy, ...recs.design, ...recs.collaboration].forEach(rec => {
-                    rec.benefits.forEach(b => recs.coBenefits.add(b));
+                allRecommendations.forEach(rec => {
+                    let isRelevant = true;
+                    if (rec.budgets && !rec.budgets.includes(data.budget)) isRelevant = false;
+                    if (rec.focus && !rec.focus.includes(data.planning_focus)) isRelevant = false;
+                    if (rec.condition && !rec.condition()) isRelevant = false;
+                    
+                    if (rec.addresses) {
+                        const challenges = [...data.urban_challenges, ...data.governance_challenges];
+                        if(!challenges.includes(rec.addresses)) isRelevant = false;
+                    }
+                    
+                    if (isRelevant) {
+                        recs[rec.category].push(rec);
+                        rec.benefits.forEach(b => recs.coBenefits.add(b));
+                    }
                 });
                 
                 return recs;
@@ -392,7 +415,7 @@
                 benefitsHtml += '</div>';
 
                 const generateSectionHtml = (title, recommendations) => {
-                    if (recommendations.length === 0) return '';
+                    if (!recommendations || recommendations.length === 0) return '';
                     let html = `<h3 class="text-xl font-bold text-teal-700 mt-8 mb-4 border-b-2 border-teal-200 pb-2">${title}</h3><div class="space-y-4">`;
                     recommendations.forEach(rec => {
                         html += `
@@ -417,7 +440,8 @@
                         <p class="text-sm text-teal-700 mb-4">Implementing these actions will contribute to broader city goals.</p>
                         ${benefitsHtml}
                     </div>
-
+                    
+                    ${generateSectionHtml('Strategic Notes', recs.strategic_notes)}
                     ${generateSectionHtml('Policy & Regulatory Actions', recs.policy)}
                     ${generateSectionHtml('Design & Infrastructure Interventions', recs.design)}
                     ${generateSectionHtml('Collaboration & Process Improvements', recs.collaboration)}
